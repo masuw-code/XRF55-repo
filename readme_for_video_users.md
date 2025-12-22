@@ -1,4 +1,10 @@
-When you have downloaded our XRF55 video dataset, you will get 19 × 58 .mkv videos and corresponding .txt timestamp files. The file naming format is **volunteer_index-action_index**.
+**Top Data Collection Logic**
+
+When you have downloaded our XRF55 video dataset, you will get 19 × 58 .mkv videos. The file naming format is **volunteer_index-action_index**.
+
+These videos comprise a set of sequential actions, with a total duration of approximately 2 minutes and 9 seconds (129 seconds). The specific sequence is structured as follows: 10 sets of [5s action + 1s rest] + 10s rest + 9 sets of [5s action + 1s rest] + 5s action = 129 seconds.
+
+
 
 > **19** is the number of volunteer data due to some volunteers not willing to disclose their videos.
 > 
