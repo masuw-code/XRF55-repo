@@ -1,4 +1,4 @@
-## Top Data Collection Logic**
+## Top Data Collection Logic
 
 When you have downloaded our XRF55 video dataset, you will get 19 × 58 .mkv videos. The file naming format is **volunteer_index-action_index**.
 
