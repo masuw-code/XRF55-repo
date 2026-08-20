@@ -81,10 +81,6 @@ Our project page: [https://aiotgroup.github.io/XRF55](https://aiotgroup.github.i
 
 [Click here](https://github.com/aiotgroup/XRF55-repo/tree/main/hardware%20tutorial) for an explanation of how the WiFi, mmWave, RFID, and Kinect devices are initialized, data collected, and processed for the device.
 
-## If you want to download our video dataset but have questions about it:
-
-[readme_for_video_users.md](https://github.com/aiotgroup/XRF55-repo/blob/main/readme_for_video_users.md) will help you to process the downloaded XRF55 video dataset correctly!
-
 ## If you want to reproduce our experiments:
 
 ### Prerequisites
