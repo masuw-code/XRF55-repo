@@ -38,6 +38,8 @@ def main():
     p.add_argument('--lr', type=float, default=0.001)
     p.add_argument('--num_workers', type=int, default=4)
     p.add_argument('--seed', type=int, default=0)
+    p.add_argument('--norm', default='none', choices=['none', 'sample', 'subject'],
+                   help='入力の正規化')
     p.add_argument('--val_trials', type=int, default=0,
                    help='学習用14試行のうち、最後の何試行を検証用にするか(0なら検証なし)')
     p.add_argument('--limit', type=int, default=0,
@@ -50,11 +52,13 @@ def main():
 
     # ---------- データ ----------
     n_train_trials = 14 - args.val_trials
-    train_set = XRFWiFiDataset(split='train', trials=set(range(1, n_train_trials + 1)))
-    test_set = XRFWiFiDataset(split='test')
+    train_set = XRFWiFiDataset(split='train', trials=set(range(1, n_train_trials + 1)), norm=args.norm)
+    # 統計量は学習用データから計算したものを、テスト用・検証用にも使う(リークを防ぐ)
+    test_set = XRFWiFiDataset(split='test', norm=args.norm, stats=train_set.stats)
     val_set = None
     if args.val_trials > 0:
-        val_set = XRFWiFiDataset(split='train', trials=set(range(n_train_trials + 1, 15)))
+        val_set = XRFWiFiDataset(split='train', trials=set(range(n_train_trials + 1, 15)),
+                                 norm=args.norm, stats=train_set.stats)
 
     if args.limit > 0:
         def shrink(ds):
@@ -71,7 +75,7 @@ def main():
     train_loader = make_loader(train_set, True)
     test_loader = make_loader(test_set, False)
     val_loader = make_loader(val_set, False) if val_set is not None else None
-    print(f'device={device} train={len(train_set)} '
+    print(f'device={device} norm={args.norm} seed={args.seed} train={len(train_set)} '
           f'val={len(val_set) if val_set is not None else 0} test={len(test_set)}', flush=True)
 
     # ---------- モデルと最適化(論文 Sec. 4.3 の設定) ----------
